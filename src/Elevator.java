@@ -45,19 +45,16 @@ public class Elevator {
     public PriorityQueue<Passenger> getElevatorDown() {
         return elevatorDown;
     }
-    public boolean addPerson(Passenger passenger) {
-        boolean isBelowCapacity = elevatorUp.size() < capacity;
-        boolean isAboveCapacity = elevatorDown.size() < capacity;
-        if (isBelowCapacity && isAboveCapacity) {
-            if (this.movingUp)
-                elevatorUp.add(passenger);
-            else
-                elevatorDown.add(passenger);
-            return true;
-        }
-        return false;
-    }
 
+    /**
+     * Removes passengers who have reached their destination floor from the elevator,
+     * updating statistics related to their travel time.
+     * Checks the elevator's direction and removes passengers from the corresponding queue
+     * until no more passengers have reached the specified floor or the elevator is empty.
+     *
+     * @param floor The floor number to which passengers' destination is checked for removal.
+     * @return True if passengers are removed; False if the elevator is empty.
+     */
     public boolean removePassenger(int floor) {
         PriorityQueue<Passenger> elevatorPassengers;
 
@@ -81,6 +78,15 @@ public class Elevator {
         return true;
     }
 
+    /**
+     * Loads passengers from the provided Deque into the elevator based on its direction.
+     * If the elevator is moving up, it loads passengers into the upward-moving elevator queue
+     * until it reaches capacity or the provided passenger queue becomes empty.
+     * If the elevator is moving down, it loads passengers into the downward-moving elevator queue
+     * until it reaches capacity or the provided passenger queue becomes empty.
+     *
+     * @param passengers The Deque of Passenger objects to load into the elevator.
+     */
     public void loadPassenger(Deque<Passenger> passengers) {
         if (movingUp) {
             while (elevatorUp.size() < capacity && !passengers.isEmpty())
@@ -91,6 +97,12 @@ public class Elevator {
         }
     }
 
+    /**
+     * Increases the tick count for each passenger in the elevator.
+     * Iterates through the passengers in the elevator (moving up or down)
+     * and increments their ticks traveled by one.
+     * Updates the longest time to destination for each passenger in the elevator.
+     */
     public void addTick() {
         Iterator<Passenger> iterator;
 
