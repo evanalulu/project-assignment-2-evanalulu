@@ -73,6 +73,7 @@ public class Elevator {
             Passenger passenger = elevatorPassengers.poll();
             int ticksTraveled = passenger.getTimeTraveled();
             Passenger.longestTimeToDest = Math.max(Passenger.longestTimeToDest, ticksTraveled);
+            Passenger.shortestTimeToDest = Math.min(Passenger.shortestTimeToDest, ticksTraveled);
             Passenger.totalTime += ticksTraveled;
             Passenger.totalPassengers++;
         }
