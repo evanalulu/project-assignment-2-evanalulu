@@ -38,6 +38,13 @@ public class Floor {
         return passengerUp;
     }
 
+    /**
+     * Increments the travel tick count for each passenger in the elevator,
+     * for both upward and downward directions.
+     * Iterates through the passengers in the elevator moving up and moving down
+     * and increments their ticks traveled by one.
+     * Updates the longest time to destination for each passenger.
+     */
     public void incrementTickCount() {
         Iterator<Passenger> upIterator;
         Iterator<Passenger> downIterator;
